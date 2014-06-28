@@ -1,14 +1,7 @@
 #ifndef __NODE_H
 #define __NODE_H
 
-typedef struct MatrixDimensions
-{
-    int _numRows;
-    int _numColumns;
-    
-    MatrixDimensions(int numRows, int numColumns) : _numRows(numRows), _numColumns(numColumns) {};
-    
-}MatrixDimensions;
+
 
 class Node {
     

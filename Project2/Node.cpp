@@ -29,13 +29,14 @@ Node::Node(int r, int c, int d) : row(r = 0), col(c = 0), data(d = 0)
     
 	if (r != 0 && c == 0) {
 		ptr = rowHead;
-		if ( rowHead->nextR == NULL)
-		{
+        
+		if ( rowHead->nextR == NULL) {
 			rowHead->nextR = Head;
 		} else {
 			rowHead = rowHead->nextR;
-		} if ( rowHead->nextC == NULL)
-		{
+		}
+        
+        if ( rowHead->nextC == NULL) {
 			rowHead->nextC = rowHead;
 		} else {
 			rowHead = rowHead->nextC;
@@ -46,15 +47,13 @@ Node::Node(int r, int c, int d) : row(r = 0), col(c = 0), data(d = 0)
 	}
     
 	if (r == 0 && c != 0) {
-		if (!colHead->nextR)
-		{
+		if (!colHead->nextR) {
 			colHead->nextR = colHead;
 		} else {
 			colHead = colHead->nextR;
 		}
         
-		if ( colHead->nextC == NULL)
-		{
+		if ( colHead->nextC == NULL) {
 			colHead->nextC = Head;
 		} else {
 			colHead->nextC = nextC;
@@ -65,20 +64,18 @@ Node::Node(int r, int c, int d) : row(r = 0), col(c = 0), data(d = 0)
     
 	while ( r && c && d ) {
 		Node* ptr = new Node;
+        
 		if ( ptr->nextR == NULL)
 		{
 			ptr->nextR = colHead;
-		}
-		else
-		{
+		} else {
 			ptr = ptr->nextR;
 		}
+        
 		if ( ptr->nextC == NULL)
 		{
 			ptr->nextC = rowHead;
-		}
-		else
-		{
+		} else {
 			ptr = ptr->nextC;
 		}
 	}

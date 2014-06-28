@@ -6,44 +6,64 @@
 //  Copyright (c) 2014 Reid Belton. All rights reserved.
 //
 
+#include <sstream>
 #include <iostream>
-#include "Node.h"
+#include <string>
+#include "Matrix.h"
 
-#pragma mark - User Input
+using namespace std;
 
-MatrixDimensions promptForMatrixSize()
-{
-    int numRows = 0;
-    int numColumns = 0;
-    
-    std::cout << "Please enter number of rows (1-30): " << std::endl;
-    std::cin >> numRows;
-    
-    if (numRows < 1 || numRows > 30) {
-        promptForMatrixSize();
-    }
-    
-    std::cout << "Please enter number of columns (1-30) " << std::endl;
-    std::cin >> numColumns;
-    
-    if (numColumns < 1 || numColumns > 30) {
-        promptForMatrixSize();
-    } else {
-        std::cout << "\n\n\n";
-    }
-    
-    return MatrixDimensions(numRows, numColumns);
-}
+// -----------------------------------------------------------------------------------------------------------------------
+//   Forward Declarations
+// -----------------------------------------------------------------------------------------------------------------------
 
+int promptForNumber(int minAcceptable, int maxAcceptable, std::string prompt);
+MatrixDimensions promptForMatrixSize();
 
-#pragma mark - Main
+// -----------------------------------------------------------------------------------------------------------------------
+//   Main
+// -----------------------------------------------------------------------------------------------------------------------
 
 int main(int argc, const char * argv[])
 {
     MatrixDimensions dimensions = promptForMatrixSize();
     
+    std::cout << "You entered " << dimensions.numRows << " rows and " << dimensions.numColumns << " columns." << std::endl;
+    
     return 0;
 }
 
+// -----------------------------------------------------------------------------------------------------------------------
+//   Input
+// -----------------------------------------------------------------------------------------------------------------------
 
+int promptForNumber(int minAcceptable, int maxAcceptable, std::string prompt)
+{
+    std::string input = "";
+    int returnNumber = 0;
+    
+    while (true) {
+        std::cout << prompt << "(" << minAcceptable << " - " << maxAcceptable << ")" << std::endl;
+        std::getline(std::cin, input);
+        
+        istringstream stream(input);
+        
+        if (stream >> returnNumber) {
+            if (returnNumber >= minAcceptable && returnNumber <= maxAcceptable) { // We have a winner.
+                break;
+            }
+        }
+        
+        std::cout << "\n\n\n******** INVALID NUMBER ********\n\n\n";
+    }
+    
+    return returnNumber;
+}
 
+MatrixDimensions promptForMatrixSize()
+{
+    int numRows = promptForNumber(2, 10, "Please enter number of rows: ");
+    int numColumns = promptForNumber(2, 10, "Please enter number of columns: ");
+    
+    return MatrixDimensions(numRows, numColumns);
+}

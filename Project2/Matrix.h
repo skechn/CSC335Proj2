@@ -13,7 +13,6 @@
 #include <vector>
 
 class Node;
-typedef Node* NodePTR;
 
 typedef struct MatrixDimensions
 {
@@ -34,11 +33,22 @@ typedef struct MatrixDimensions
 
 class Matrix
 {
+    Node* head;
+    
     class Node {
+    private:
         int _row;
         int _column;
         int _data;
-        NodePTR nextNode;
+        Node* _nextNode;
+        
+    public:
+        Node(int row, int column, int data) : _row(row), _column(column) {}
+        int row() {return _row;}
+        int column() {return _column;}
+        int data() {return _data;}
+        
+        void setNextNode(Node* next) {_nextNode = next;}
     };
     
 public:
@@ -52,4 +62,4 @@ private:
     std::vector<int> _elements;
 };
 
-#endif /* defined(__Project2__Matrix__) */
+#endif

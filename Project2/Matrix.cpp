@@ -9,11 +9,27 @@
 #include "Matrix.h"
 #include "Node.h"
 
-Matrix::Matrix(MatrixDimensions dimensions)
+Matrix::Matrix(const MatrixDimensions dimensions, const std::vector<int> elements) : _dimensions(dimensions), _elements(elements)
 {
-    for (int currentColumn = 0; currentColumn < dimensions.numColumns; currentColumn++) {
-        for (int currentRow = 0; currentRow < dimensions.numRows; currentRow++) {
-            Node newNode = Node(currentRow, currentColumn, arc4random() % 9); // Assigning random value to each node for testing
-        }
+    // Create nodes at appropriate rows and columns
+}
+
+Matrix* Matrix::operator + (const Matrix& other) const
+{
+    if (this->dimensions() != other.dimensions())
+    {
+        std::cout << "Two matrices are not of same dimensions!";
+        return NULL;
     }
+    
+    std::vector<int> newElements;
+    // Calculate each element appropriately here
+
+    // Create and return resulting matrix
+    return new Matrix(this->dimensions(), newElements);
+}
+
+MatrixDimensions Matrix::dimensions() const
+{
+    return _dimensions;
 }

@@ -9,6 +9,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Matrix.h"
 
 using namespace std;
@@ -17,7 +18,8 @@ using namespace std;
 //   Forward Declarations
 // -----------------------------------------------------------------------------------------------------------------------
 
-int promptForNumber(int minAcceptable, int maxAcceptable, std::string prompt);
+int promptForNumber(const int minAcceptable, const int maxAcceptable, const std::string prompt);
+std::vector<int> getNumbersForMatrixDimensions(const MatrixDimensions dimensions);
 MatrixDimensions promptForMatrixSize();
 
 // -----------------------------------------------------------------------------------------------------------------------
@@ -37,7 +39,32 @@ int main(int argc, const char * argv[])
 //   Input
 // -----------------------------------------------------------------------------------------------------------------------
 
-int promptForNumber(int minAcceptable, int maxAcceptable, std::string prompt)
+MatrixDimensions promptForMatrixSize()
+{
+    int numRows = promptForNumber(2, 10, "Please enter number of rows: ");
+    int numColumns = promptForNumber(2, 10, "Please enter number of columns: ");
+    
+    return MatrixDimensions(numRows, numColumns);
+}
+
+std::vector<int> getNumbersForMatrixDimensions(const MatrixDimensions dimensions)
+{
+    std::vector<int> vect(dimensions.numColumns * dimensions.numRows);
+    
+    for (int currRow = 0; currRow < dimensions.numRows; currRow++)
+    {
+        for (int currColumn = 0; currColumn < dimensions.numColumns; currColumn++)
+        {
+            std::ostringstream stream;
+            stream << "Please enter a number between 1 - 100 for row " << currRow << ", column " << currColumn;
+            promptForNumber(0, 100, stream.str());
+        }
+    }
+    
+    return vect;
+}
+
+int promptForNumber(const int minAcceptable, const int maxAcceptable, const std::string prompt)
 {
     std::string input = "";
     int returnNumber = 0;
@@ -60,10 +87,3 @@ int promptForNumber(int minAcceptable, int maxAcceptable, std::string prompt)
     return returnNumber;
 }
 
-MatrixDimensions promptForMatrixSize()
-{
-    int numRows = promptForNumber(2, 10, "Please enter number of rows: ");
-    int numColumns = promptForNumber(2, 10, "Please enter number of columns: ");
-    
-    return MatrixDimensions(numRows, numColumns);
-}

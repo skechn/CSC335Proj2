@@ -1,0 +1,13 @@
+#include "Matix.h"
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	allocator <int> a1;
+	vector <int, allocator <int>> v1;
+	v1 <3, <a1>>;
+	vector <int> v2;
+	MatrixDimensions mD1( 5, 5);
+	Matrix m1( mD1, v1);
+}
